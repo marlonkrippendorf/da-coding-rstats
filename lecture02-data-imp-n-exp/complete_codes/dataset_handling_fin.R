@@ -47,8 +47,8 @@ library(tidyverse)
 #   2) Import by defining your path:
 #       a) use an absolute path (you have to know from root folder the path of your csv)
 
-data_in <- '~/Documents/Egyetem/Bekes_Kezdi_Textbook/da-coding-rstats/lecture02-data-imp_n_exp/data/hotels_vienna/'
-df_0      <- read_csv(paste0(data_in,'clean/hotels-vienna.csv'))
+wdpath <- 'C:/Users/marlo/Documents/PhDEQUALFIN/da-coding-rstats/lecture02-data-imp-n-exp/data/hotels_vienna/'
+df_hotels <- read_csv(paste0(wdpath, 'clean/hotels-vienna.csv'))
 
 #       b) use relative path:
 #           R works in a specific folder called `working directory`, that you can check by:
@@ -81,20 +81,21 @@ df <- read_csv(url('https://osf.io/y6jvb/download'))
 # Quick check on the data:
 
 # glimpse on data
-glimpse(df)
+glimpse(df_hotels)
 
 # Check some of the first observations
-head(df)
+head(df_hotels)
 
 # Have a built in summary for the variables
-summary(df)
+summary(df_hotels)
 
 
 ###########################
 # Exporting your data:
 #
 # This is a special case: data_out is now the same as data_in (no cleaning...)
-data_out <- paste0(data_in, '/export/')
+wdpath_exp <- paste0(wdpath, 'export/')
+wdpath_exp
 write_csv(df, paste0(data_out, 'my_csvfile.csv'))
 
 # If due to some reason you would like to export as xls(x)
@@ -128,8 +129,10 @@ library(WDI)
 # How WDI works - it is an API
 # Search for variables which contains GDP
 a <- WDIsearch('gdp')
+a
 # Narrow down the serach for: GDP + something + capita + something + constant
 a <- WDIsearch('gdp.*capita.*constant')
+a
 # Get data
 gdp_data <- WDI(indicator='NY.GDP.PCAP.PP.KD', country='all', start=2019, end=2019)
 
@@ -155,4 +158,4 @@ write_xlsx(df_t1, paste0(data_out, 'hotelbookingdata.xlsx'))
 save(df_t1, file = paste0(data_out, 'hotelbookingdata.RData'))
 
 
-
+rm(a, aapl, df_hotels, gdp_data)
